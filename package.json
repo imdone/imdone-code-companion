@@ -9,13 +9,17 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "*",
+    "onLanguage:markdown",
+    "onCommand:todo-cards.refreshCards"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "open-in-imdone.helloWorld",
-        "title": "Hello World"
+        "command": "open-in-imdone.refreshCards",
+        "title": "Open In Imdone: Refresh Cards"
       }
     ]
   },

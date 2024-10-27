@@ -35,14 +35,71 @@ __export(extension_exports, {
 });
 module.exports = __toCommonJS(extension_exports);
 var vscode = __toESM(require("vscode"));
+var todoSections = [];
 function activate(context) {
-  console.log('Congratulations, your extension "open-in-imdone" is now active!');
-  const disposable = vscode.commands.registerCommand("open-in-imdone.helloWorld", () => {
-    vscode.window.showInformationMessage("Hello World from open-in-imdone!!!");
+  let disposable = vscode.commands.registerCommand("open-in-imdone.refreshCards", () => {
+    refreshTodoCards();
   });
   context.subscriptions.push(disposable);
+  vscode.window.onDidChangeActiveTextEditor(refreshTodoCards, null, context.subscriptions);
+  vscode.workspace.onDidChangeTextDocument(refreshTodoCards, null, context.subscriptions);
+  refreshTodoCards();
+}
+function refreshTodoCards() {
+  const editor = vscode.window.activeTextEditor;
+  if (!editor) return;
+  deactivate();
+  const text = editor.document.getText();
+  const sections = findTodoSections(text);
+  sections.forEach((section) => {
+    editor.setDecorations(section.borderTopLeftRight, [section.borderTopLeftRightRange]);
+    editor.setDecorations(section.borderLeftRight, [section.borderLeftRightRange]);
+    editor.setDecorations(section.borderBottomLeftRight, [section.borderBottomLeftRightRange]);
+  });
+}
+function findTodoSections(text) {
+  const editor = vscode.window.activeTextEditor;
+  if (!editor) return [];
+  const regex = /(^#TODO[\s\S]*?)(\n\s*\n|$)/gm;
+  todoSections = [];
+  let match;
+  while ((match = regex.exec(text)) !== null) {
+    const startLine = text.slice(0, match.index).split("\n").length - 1;
+    const endLine = text.slice(0, regex.lastIndex).split("\n").length - 1;
+    todoSections.push({
+      startLine,
+      endLine,
+      borderTopLeftRight: vscode.window.createTextEditorDecorationType({
+        borderWidth: "1px 0 0 0",
+        borderStyle: "solid",
+        borderColor: "rgba(30, 144, 255, 0.8)",
+        backgroundColor: "rgba(30, 144, 255, 0.1)",
+        isWholeLine: true
+      }),
+      borderTopLeftRightRange: new vscode.Range(startLine, 0, startLine, Number.MAX_SAFE_INTEGER),
+      borderLeftRight: vscode.window.createTextEditorDecorationType({
+        backgroundColor: "rgba(30, 144, 255, 0.1)",
+        isWholeLine: true
+      }),
+      borderLeftRightRange: new vscode.Range(startLine + 1, 0, endLine - 1, Number.MAX_SAFE_INTEGER),
+      borderBottomLeftRight: vscode.window.createTextEditorDecorationType({
+        borderWidth: "0 0 1px 0",
+        borderStyle: "solid",
+        borderColor: "rgba(30, 144, 255, 0.8)",
+        backgroundColor: "rgba(30, 144, 255, 0.1)",
+        isWholeLine: true
+      }),
+      borderBottomLeftRightRange: new vscode.Range(endLine, 0, endLine, Number.MAX_SAFE_INTEGER)
+    });
+  }
+  return todoSections;
 }
 function deactivate() {
+  todoSections.forEach((section) => {
+    section.borderTopLeftRight.dispose();
+    section.borderLeftRight.dispose();
+    section.borderBottomLeftRight.dispose();
+  });
 }
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
