@@ -1,6 +1,6 @@
 {
-  "name": "open-in-imdone",
-  "displayName": "open-in-imdone",
+  "name": "imdone-code-companion",
+  "displayName": "Imdone Code Companion",
   "description": "Open TODO's in imdone kanban",
   "version": "0.0.1",
   "engines": {
@@ -18,8 +18,19 @@
   "contributes": {
     "commands": [
       {
-        "command": "open-in-imdone.refreshCards",
-        "title": "Open In Imdone: Refresh Cards"
+        "command": "imdone-code-companion.refreshCards",
+        "title": "Imdone Code Companion: Refresh"
+      },
+      {
+        "command": "imdone-code-companion.openCard",
+        "title": "Imdone Code Companion: View in Imdone Kanban"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "imdone-code-companion.openCard",
+        "key": "ctrl+i",
+        "when": "editorTextFocus"
       }
     ]
   },
@@ -38,16 +49,19 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.94.0",
     "@types/mocha": "^10.0.8",
     "@types/node": "20.x",
+    "@types/vscode": "^1.94.0",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
-    "eslint": "^9.11.1",
-    "esbuild": "^0.24.0",
-    "npm-run-all": "^4.1.5",
-    "typescript": "^5.6.2",
     "@vscode/test-cli": "^0.0.10",
-    "@vscode/test-electron": "^2.4.1"
+    "@vscode/test-electron": "^2.4.1",
+    "esbuild": "^0.24.0",
+    "eslint": "^9.11.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.6.2"
+  },
+  "dependencies": {
+    "imdone-core": "^1.47.1"
   }
 }
