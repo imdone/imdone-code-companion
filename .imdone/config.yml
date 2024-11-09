@@ -1,0 +1,80 @@
+keepEmptyPriority: false
+code:
+  include_lists:
+    - TODO
+    - DOING
+    - DONE
+    - PLANNING
+    - FIXME
+    - ARCHIVE
+    - HACK
+    - CHANGED
+    - XXX
+    - IDEA
+    - NOTE
+    - REVIEW
+lists:
+  - name: NOTE
+    hidden: false
+    id: jea6177am3aec31n
+  - name: Past Due Reminders
+    hidden: true
+    ignore: false
+    filter: 'remind = /./ and remind < "${now}" and list != DONE -remind'
+    id: jea6177am3aec31o
+  - name: What's Due?
+    hidden: true
+    ignore: false
+    filter: 'dueDate < "${in 15 days}" AND list != DONE +dueDate +order'
+    id: jea6177am3aec31p
+  - name: TODO
+    hidden: false
+    id: jea6177am3aec31q
+  - name: DOING
+    hidden: false
+    id: jea6177am3aec31r
+  - name: DONE
+    hidden: false
+    ignore: true
+    id: jea6177am3aec31s
+  - name: Recently Completed
+    filter: 'completedDate > "${14 days ago}" -completed'
+    hidden: false
+    id: jea6177am3aec31t
+settings:
+  openIn: default
+  journalType: New File
+  journalPath: backlog
+  appendNewCardsTo: imdone-tasks.md
+  newCardSyntax: HASHTAG
+  replaceSpacesWith: '-'
+  plugins:
+    devMode: false
+  journalTemplate: null
+  markdownOnly: true
+  views: []
+  name: "\U0001F680 imdone-code-companion (vs code extension)"
+  kudosProbability: 0.33
+  cards:
+    colors: []
+    template: |
+
+      <!--
+      created:${timestamp}
+      -->
+    trackChanges: false
+    metaNewLine: true
+    addCompletedMeta: true
+    addCheckBoxTasks: false
+    doneList: DONE
+    tokenPrefix: '#'
+    taskPrefix: '##'
+    tagPrefix: '#'
+    metaSep: ':'
+    orderMeta: true
+    maxLines: 6
+    addNewCardsToTop: true
+    showTagsAndMeta: true
+    defaultList: TODO
+    archiveCompleted: false
+    archiveFolder: backlog/archive

@@ -133,5 +133,5 @@ function clearTodoSections() {
 }
 // Clear previous decorations
 export function deactivate() {
-  clearTodoSections()
+  clearTodoSections();
 }

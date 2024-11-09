@@ -1,71 +1,49 @@
-# open-in-imdone README
+# imdone-code-companion README
 
-This is the README for your extension "open-in-imdone". After writing up a brief description, we recommend including the following sections.
+This is the README for the "imdone-code-companion" extension. This extension provides a seamless way to open Imdone directly to the specific card the cursor is currently in, right from Visual Studio Code.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Open Imdone Card with Keyboard Shortcut**: Place your cursor inside a `#TODO` card section and press `Cmd+Shift+I` (Mac) or `Ctrl+Shift+I` (Windows/Linux) to open Imdone directly to the card.
+- **Efficient Card Location Detection**: Automatically gathers the active file path and line number, generating a link to open Imdone at the exact location.
 
-For example if there is an image subfolder under your extension project workspace:
+### Example of Usage
 
-\!\[feature X\]\(images/feature-x.png\)
+\!\[Open Card in Imdone\]\(images/imdone-card-open.png\)
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+This command works in any file that contains Imdone-compatible `#TODO` sections, making it easy to track and manage tasks without leaving your coding environment.
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- **Imdone**: Make sure Imdone is installed and configured to manage your project's `#TODO` sections. Learn more at [Imdone.io](https://imdone.io).
+- **VS Code Workspace**: The extension requires an open workspace for it to locate files and manage relative paths correctly.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+This extension doesn’t currently add any specific settings but is enabled as long as VS Code is active.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+None reported yet. Please create an issue if you experience any problems.
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+- Initial release of `imdone-code-companion`, featuring keyboard shortcut support for opening Imdone at specific cards.
 
 ---
 
-## Following extension guidelines
+## Following Extension Guidelines
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+We strive to follow best practices for VS Code extensions. Please see the official [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines) for more information.
 
 ## Working with Markdown
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+You can use Visual Studio Code to edit and preview this README:
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+* **Split the editor** (`Cmd+\` on macOS or `Ctrl+\` on Windows/Linux).
+* **Toggle preview** (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows/Linux).
+* **View Markdown snippets** (`Ctrl+Space` on any platform).
 
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+**Enjoy using imdone-code-companion to streamline your task management in VS Code!**
