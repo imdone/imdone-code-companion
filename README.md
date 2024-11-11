@@ -1,6 +1,6 @@
 # imdone-code-companion README
 
-This is the README for the "imdone-code-companion" extension. This extension provides a seamless way to open Imdone directly to the specific card the cursor is currently in, right from Visual Studio Code.
+This extension provides a seamless way to open Imdone directly to the specific card the cursor is currently in, right from Visual Studio Code.
 
 ## Features
 

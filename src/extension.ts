@@ -6,12 +6,6 @@ interface TodoSection {
   endLine: number;
   lineBackgroundStyle: vscode.TextEditorDecorationType;
   lineBackgroundRange: vscode.Range;
-  borderTopLeftRightRange: vscode.Range;
-  borderTopLeftRight: vscode.TextEditorDecorationType;
-  borderLeftRightRange: vscode.Range;
-  borderLeftRight: vscode.TextEditorDecorationType;
-  borderBottomLeftRightRange: vscode.Range;
-  borderBottomLeftRight: vscode.TextEditorDecorationType;
 }
 
 let todoSections: TodoSection[] = [];
@@ -50,9 +44,6 @@ async function refreshTodoCards() {
 
   sections.forEach((section) => {
     editor.setDecorations(section.lineBackgroundStyle, [section.lineBackgroundRange]);
-      // editor.setDecorations(section.borderTopLeftRight, [section.borderTopLeftRightRange]);
-      // editor.setDecorations(section.borderLeftRight, [section.borderLeftRightRange]);
-      // editor.setDecorations(section.borderBottomLeftRight, [section.borderBottomLeftRightRange]);
   });
 }
 
@@ -78,27 +69,6 @@ async function findTodoSections(text: string) {
         isWholeLine: true,
       }),
       lineBackgroundRange: new vscode.Range(startLine - 1, 0, endLine, Number.MAX_SAFE_INTEGER),
-      borderTopLeftRight: vscode.window.createTextEditorDecorationType({
-        borderWidth: '1px 0 0 0',
-        borderStyle: 'solid',
-        borderColor: 'rgba(30, 144, 255, 0.8)',
-        backgroundColor: 'rgba(30, 144, 255, 0.1)',
-        isWholeLine: true,
-      }),
-      borderTopLeftRightRange: new vscode.Range(startLine - 1, 0, startLine - 1, Number.MAX_SAFE_INTEGER),
-      borderLeftRight: vscode.window.createTextEditorDecorationType({
-        backgroundColor: 'rgba(30, 144, 255, 0.1)',
-        isWholeLine: true,
-      }),
-      borderLeftRightRange: new vscode.Range(startLine, 0, endLine - 1, Number.MAX_SAFE_INTEGER),
-      borderBottomLeftRight: vscode.window.createTextEditorDecorationType({
-        borderWidth: '0 0 1px 0',
-        borderStyle: 'solid',
-        borderColor: 'rgba(30, 144, 255, 0.8)',
-        backgroundColor: 'rgba(30, 144, 255, 0.1)',
-        isWholeLine: true,
-      }),
-      borderBottomLeftRightRange: new vscode.Range(endLine, 0, endLine, Number.MAX_SAFE_INTEGER),
     });
   }
 
@@ -126,9 +96,6 @@ function openImdoneCard() {
 function clearTodoSections() {
   todoSections.forEach((section) => {
     section.lineBackgroundStyle.dispose();
-    section.borderTopLeftRight.dispose();
-    section.borderLeftRight.dispose();
-    section.borderBottomLeftRight.dispose();
   });
 }
 // Clear previous decorations
