@@ -4,18 +4,18 @@ This is the README for the "imdone-code-companion" extension. This extension pro
 
 ## Features
 
-- **Open Imdone Card with Keyboard Shortcut**: Place your cursor inside a `#TODO` card section and press `Cmd+Shift+I` (Mac) or `Ctrl+Shift+I` (Windows/Linux) to open Imdone directly to the card.
+- **Open Imdone Card with Keyboard Shortcut**: Place your cursor inside a `TODO` comments and press `Ctrl+I` to open Imdone directly to the card.
 - **Efficient Card Location Detection**: Automatically gathers the active file path and line number, generating a link to open Imdone at the exact location.
 
 ### Example of Usage
 
-\!\[Open Card in Imdone\]\(images/imdone-card-open.png\)
+![Open Card in Imdone](imdone-code-companion.gif)
 
-This command works in any file that contains Imdone-compatible `#TODO` sections, making it easy to track and manage tasks without leaving your coding environment.
+This command works in any file that contains Imdone-compatible `TODO` comments, making it easy to track and manage tasks without leaving your coding environment.
 
 ## Requirements
 
-- **Imdone**: Make sure Imdone is installed and configured to manage your project's `#TODO` sections. Learn more at [Imdone.io](https://imdone.io).
+- **Imdone**: Make sure Imdone is installed and configured to manage your project's `TODO` comments. Learn more at [Imdone.io](https://imdone.io).
 - **VS Code Workspace**: The extension requires an open workspace for it to locate files and manage relative paths correctly.
 
 ## Extension Settings

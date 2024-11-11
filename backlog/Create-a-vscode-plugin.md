@@ -9,10 +9,10 @@
 
 #### Tasks
 
-- [ ] Add Readme
+- [x] Add Readme
 - [ ] Register to Marketplace
-- [ ] Bundle and install locally
-- [ ] Review Readme
+- [x] Bundle and install locally
+- [x] Review Readme
 - [ ] Publish to Marketplace
 - [ ] Plan Launch
 
