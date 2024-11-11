@@ -2,7 +2,8 @@
   "name": "imdone-code-companion",
   "displayName": "Imdone Code Companion",
   "description": "Open TODO's in imdone kanban",
-  "version": "0.0.1",
+  "version": "0.0.2",
+  "publisher": "imdone",
   "repository": {
     "type": "git",
     "url": "https://github.com/imdone/imdone-code-companion"},
@@ -14,11 +15,11 @@
   ],
   "activationEvents": [
     "*",
-    "onLanguage:markdown",
     "onCommand:todo-cards.refreshCards"
   ],
   "main": "./dist/extension.js",
   "contributes": {
+    "icon": "imdone-logo-128.png",
     "commands": [
       {
         "command": "imdone-code-companion.refreshCards",
