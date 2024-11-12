@@ -7,13 +7,18 @@
 [AI help](https://chatgpt.com/share/670e5987-4764-8005-9a03-035af53546c5)
 [Readme AI Help](https://chatgpt.com/share/672792d9-30ec-8005-be67-c6238878469e)
 
+#### Links to keep
+
+[Publishing Extensions | Visual Studio Code Extension API](https://code.visualstudio.com/api/working-with-extensions/publishing-extension)
+[Manage Extensions | Visual Studio Marketplace](https://marketplace.visualstudio.com/manage/publishers/Imdone?auth_redirect=True)
+
 #### Tasks
 
 - [x] Add Readme
-- [ ] Register to Marketplace
+- [x] Register to Marketplace
 - [x] Bundle and install locally
 - [x] Review Readme
-- [ ] Publish to Marketplace
+- [x] Publish to Marketplace
 - [ ] Plan Launch
 
 <!--
