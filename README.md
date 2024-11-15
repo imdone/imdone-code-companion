@@ -28,6 +28,10 @@ None reported yet. Please create an issue if you experience any problems.
 
 ## Release Notes
 
+### 0.0.4
+
+- Support older versions of vscode. `^1.93.1`
+
 ### 0.0.2
 
 - Initial release of `imdone-code-companion`, featuring keyboard shortcut support for opening Imdone at specific cards.

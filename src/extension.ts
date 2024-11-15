@@ -20,7 +20,7 @@ export async function activate(context: vscode.ExtensionContext) {
 
 
   // Register the command to refresh TODO cards
-  const refreshCards = vscode.commands.registerCommand('imdone-code-companion.IrefreshCards', () => {
+  const refreshCards = vscode.commands.registerCommand('imdone-code-companion.refreshCards', () => {
     refreshTodoCards();
   });
 
@@ -36,7 +36,7 @@ export async function activate(context: vscode.ExtensionContext) {
 // Main function to refresh TODO card decorations
 async function refreshTodoCards() {
   
-  const editor = vscode.  window.activeTextEditor;
+  const editor = vscode.window.activeTextEditor;
   if (!editor) { return; }
 
   const text = editor.document.getText();

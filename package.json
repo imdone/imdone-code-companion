@@ -2,21 +2,22 @@
   "name": "imdone-code-companion",
   "displayName": "Imdone Code Companion",
   "description": "Open TODO's in imdone kanban",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "publisher": "imdone",
   "icon": "imdone-logo-128.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/imdone/imdone-code-companion"},
   "engines": {
-    "vscode": "^1.94.0"
+    "vscode": "^1.93.1"
   },
   "categories": [
     "Other"
   ],
   "activationEvents": [
-    "*",
-    "onCommand:todo-cards.refreshCards"
+    "onLanguage:*",
+    "workspaceContains:**/*",
+    "onStartupFinished"
   ],
   "main": "./dist/extension.js",
   "contributes": {
@@ -49,15 +50,16 @@
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
-    "deploy:local": "npm run package:vsce && code --install-extension imdone-code-companion-0.0.1.vsix --force",
+    "deploy:local": "npm run package:vsce && code --install-extension imdone-code-companion-$npm_package_version.vsix --force",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test"
+    "test": "vscode-test",
+    "env": "echo imdone-code-companion-$npm_package_version.vsix"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.8",
     "@types/node": "20.x",
-    "@types/vscode": "^1.94.0",
+    "@types/vscode": "^1.93.1",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
     "@vscode/test-cli": "^0.0.10",
