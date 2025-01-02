@@ -1,4 +1,4 @@
-## #DOING :electric_plug: Create a vscode plugin
+## #DONE :electric_plug: Create a vscode plugin
 
 ### Imdone Code Companion
 
@@ -19,11 +19,12 @@
 - [x] Bundle and install locally
 - [x] Review Readme
 - [x] Publish to Marketplace
-- [ ] Plan Launch
+- [x] Plan Launch
 
 <!--
-#imdone-1.47.0
+#imdone-1.50.0
 created:2024-10-14T11:22:37-04:00
 order:-10
+completed:2024-11-18T13:44:38-05:00
 -->
 

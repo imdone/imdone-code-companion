@@ -1,6 +1,8 @@
 # Change Log
 
-## [Unreleased]
+## 0.0.6
+
+- Autocomplete for `#imdone` tags
 
 ## 0.0.3
 
