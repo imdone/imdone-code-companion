@@ -1,6 +1,8 @@
 import * as vscode from 'vscode';
 // @ts-ignore
 import { getTasks } from 'imdone-core/lib/usecases/get-tasks-in-file';
+// @ts-ignore
+import { getTags } from 'imdone-core/lib/usecases/get-project-tags';
 interface TodoSection {
   startLine: number;
   endLine: number;
@@ -11,20 +13,22 @@ interface TodoSection {
 let todoSections: TodoSection[] = [];
 
 export async function activate(context: vscode.ExtensionContext) {
-  // Register the command that opens the Imdone card
-  const disposable = vscode.commands.registerCommand('imdone-code-companion.openCard', () => {
-    openImdoneCard();
-  });
 
-  context.subscriptions.push(disposable);
+  if (!context.subscriptions.some(sub => sub instanceof vscode.Disposable && (sub as any)['_command'] === 'imdone-code-companion.openCard')) {
+    // Register the command that opens the Imdone card
+    const disposable = vscode.commands.registerCommand('imdone-code-companion.openCard', () => {
+      openImdoneCard();
+    });
 
+    context.subscriptions.push(disposable);
+    context.subscriptions.push(imdoneCompletionProvider);
+    // Register the command to refresh TODO cards
+    const refreshCards = vscode.commands.registerCommand('imdone-code-companion.refreshCards', () => {
+      refreshTodoCards();
+    });
 
-  // Register the command to refresh TODO cards
-  const refreshCards = vscode.commands.registerCommand('imdone-code-companion.refreshCards', () => {
-    refreshTodoCards();
-  });
-
-  context.subscriptions.push(refreshCards);
+    context.subscriptions.push(refreshCards);
+  }
 
   // Automatically refresh cards when the active editor or document changes
   vscode.window.onDidChangeActiveTextEditor(refreshTodoCards, null, context.subscriptions);
@@ -32,6 +36,43 @@ export async function activate(context: vscode.ExtensionContext) {
 
   refreshTodoCards(); // Initial refresh on startup
 }
+
+const imdoneCompletionProvider = vscode.languages.registerCompletionItemProvider(
+  { scheme: 'file', pattern: '**/*' },
+  {
+    async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+      const sections = await findTodoSections(document.getText());
+      const lineNumber = position.line;
+      const section = sections.find((section) => {
+        return section.startLine <= lineNumber && section.endLine >= lineNumber;
+      });
+      if (!section) {
+        return [];
+      }
+      const lineText = document.lineAt(position).text;
+      const completionItems: vscode.CompletionItem[] = [];
+
+      // Check for tag trigger: `#` anywhere on the line
+      if (lineText.includes('#')) {
+        let tags = [];
+        try {
+          tags = await getTags(document.uri.fsPath);
+        } catch (error) {
+          console.error('Error fetching tags:', error);
+        }
+        tags.forEach((tag: string) => {
+          const item = new vscode.CompletionItem(tag, vscode.CompletionItemKind.Keyword);
+          item.detail = 'Imdone Tag';
+          item.insertText = tag;
+          completionItems.push(item);
+        });
+      }
+
+      return completionItems;
+    }
+  },
+  '#' // Trigger on `#`
+);
 
 // Main function to refresh TODO card decorations
 async function refreshTodoCards() {

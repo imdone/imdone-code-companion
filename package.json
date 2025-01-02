@@ -2,7 +2,7 @@
   "name": "imdone-code-companion",
   "displayName": "Imdone Code Companion",
   "description": "Open TODO's in imdone kanban",
-  "version": "0.0.4",
+  "version": "0.0.6",
   "publisher": "imdone",
   "icon": "imdone-logo-128.png",
   "repository": {
@@ -14,8 +14,14 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "imdone",
+    "kanban",
+    "todo",
+    "task",
+    "agile"
+  ],
   "activationEvents": [
-    "onLanguage:*",
     "workspaceContains:**/*",
     "onStartupFinished"
   ],
@@ -53,8 +59,7 @@
     "deploy:local": "npm run package:vsce && code --install-extension imdone-code-companion-$npm_package_version.vsix --force",
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
-    "test": "vscode-test",
-    "env": "echo imdone-code-companion-$npm_package_version.vsix"
+    "test": "vscode-test"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.8",
@@ -70,6 +75,6 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "imdone-core": "^1.47.1"
+    "imdone-core": "^1.50.1"
   }
 }

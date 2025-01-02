@@ -1,4 +1,3 @@
-keepEmptyPriority: false
 code:
   include_lists:
     - TODO
@@ -74,7 +73,7 @@ settings:
     orderMeta: true
     maxLines: 6
     addNewCardsToTop: true
-    showTagsAndMeta: true
+    showTagsAndMeta: false
     defaultList: TODO
     archiveCompleted: false
     archiveFolder: backlog/archive
