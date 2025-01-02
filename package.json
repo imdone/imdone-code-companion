@@ -2,7 +2,7 @@
   "name": "imdone-code-companion",
   "displayName": "Imdone Code Companion",
   "description": "Open TODO's in imdone kanban",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "publisher": "imdone",
   "icon": "imdone-logo-128.png",
   "repository": {
