@@ -1,3 +1,4 @@
+keepEmptyPriority: false
 code:
   include_lists:
     - TODO
@@ -42,6 +43,7 @@ lists:
     id: jea6177am3aec31t
 settings:
   openIn: default
+  openCodeIn: default
   journalType: New File
   journalPath: backlog
   appendNewCardsTo: imdone-tasks.md
@@ -50,7 +52,7 @@ settings:
   plugins:
     devMode: false
   journalTemplate: null
-  markdownOnly: true
+  markdownOnly: false
   views: []
   name: "\U0001F680 imdone-code-companion (vs code extension)"
   kudosProbability: 0.33

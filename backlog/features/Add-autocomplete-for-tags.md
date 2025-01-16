@@ -1,6 +1,6 @@
 ## #DOING :magic_wand: Add autocomplete for tags
 
-- [ ] Mention on imdone home page
+- [x] Mention on imdone home page
 - [ ] Update gif to include autocomplete for tags
 
 <!--
