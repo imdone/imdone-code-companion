@@ -4,7 +4,7 @@ This extension provides a seamless way to open Imdone directly to the specific c
 
 ## Features
 
-- **Open Imdone Card with Keyboard Shortcut**: Place your cursor inside a `TODO` comments and press `Ctrl+I` to open Imdone directly to the card.
+- **Open Imdone Card with Keyboard Shortcut**: Place your cursor inside a `TODO` comments and press `Ctrl+Shift+I` to open Imdone directly to the card.
 - **Efficient Card Location Detection**: Automatically gathers the active file path and line number, generating a link to open Imdone at the exact location.
 - **Autocomplete for `#imdone` Tags**: Provides autocomplete suggestions for `#imdone` tags as you type, making it easier to add and manage tasks.
 
@@ -28,6 +28,15 @@ This extension doesn’t currently add any specific settings but is enabled as l
 None reported yet. Please create an issue if you experience any problems.
 
 ## Release Notes
+
+
+### 0.0.9
+
+- Update README with Ctrl+Shift+I hotkey
+
+## 0.0.8
+
+- Change hotkey to `ctrl+shift+I` to avoid conflicts with other plugins and align with obsidian imdone plugin
 
 ### 0.0.6
 
