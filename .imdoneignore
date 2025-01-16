@@ -1,3 +1,8 @@
 .obsidian
 .trash
 .imdone/plugins
+node_modules
+backlog/archive
+out
+dist
+.vscode-test

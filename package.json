@@ -2,7 +2,7 @@
   "name": "imdone-code-companion",
   "displayName": "Imdone Code Companion",
   "description": "Open TODO's in imdone kanban",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publisher": "imdone",
   "icon": "imdone-logo-128.png",
   "repository": {
@@ -40,7 +40,7 @@
     "keybindings": [
       {
         "command": "imdone-code-companion.openCard",
-        "key": "ctrl+i",
+        "key": "ctrl+shift+i",
         "when": "editorTextFocus"
       }
     ]

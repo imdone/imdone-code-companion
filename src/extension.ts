@@ -22,7 +22,6 @@ export async function activate(context: vscode.ExtensionContext) {
 
     context.subscriptions.push(disposable);
     context.subscriptions.push(imdoneCompletionProvider);
-    // Register the command to refresh TODO cards
     const refreshCards = vscode.commands.registerCommand('imdone-code-companion.refreshCards', () => {
       refreshTodoCards();
     });
@@ -37,6 +36,10 @@ export async function activate(context: vscode.ExtensionContext) {
   refreshTodoCards(); // Initial refresh on startup
 }
 
+// TODO Update this to work more like the imdone obsidian plugin
+// <!--
+// order:-10
+// -->
 const imdoneCompletionProvider = vscode.languages.registerCompletionItemProvider(
   { scheme: 'file', pattern: '**/*' },
   {
@@ -74,7 +77,6 @@ const imdoneCompletionProvider = vscode.languages.registerCompletionItemProvider
   '#' // Trigger on `#`
 );
 
-// Main function to refresh TODO card decorations
 async function refreshTodoCards() {
   
   const editor = vscode.window.activeTextEditor;
