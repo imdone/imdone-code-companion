@@ -74,9 +74,9 @@
     "eslint": "^9.11.1",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.6.2",
-    "vsce": "^2.15.0"
+    "vsce": "^1.97.0"
   },
   "dependencies": {
-    "imdone-core": "^2.0.22"
+    "imdone-core": "^2.1.2"
   }
 }
