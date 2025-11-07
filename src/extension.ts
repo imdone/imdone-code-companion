@@ -16,8 +16,7 @@ interface TodoSection {
 let todoSections: TodoSection[] = [];
 
 export async function activate(context: vscode.ExtensionContext) {
-  console.log('🚀 IMDONE CODE COMPANION EXTENSION ACTIVATING!');
-  vscode.window.showInformationMessage('Imdone Code Companion extension activated!');
+  // vscode.window.showInformationMessage('Imdone Code Companion extension activated!');
 
   if (!context.subscriptions.some(sub => sub instanceof vscode.Disposable && (sub as any)['_command'] === 'imdone-code-companion.openCard')) {
     // Register the command that opens the Imdone card
@@ -26,9 +25,7 @@ export async function activate(context: vscode.ExtensionContext) {
     });
 
     context.subscriptions.push(disposable);
-    console.log('📝 Registering imdone completion provider');
     context.subscriptions.push(imdoneCompletionProvider);
-    console.log('💰 Registering card data completion provider');
     context.subscriptions.push(cardDataCompletionProvider);
     const refreshCards = vscode.commands.registerCommand('imdone-code-companion.refreshCards', () => {
       refreshTodoCards();
@@ -85,46 +82,35 @@ const imdoneCompletionProvider = vscode.languages.registerCompletionItemProvider
   '#' // Trigger on `#`
 );
 
-// DONE: trigger completions for card data with a trigger on `$`
 // Card data completion provider that triggers on `$`
 const cardDataCompletionProvider = vscode.languages.registerCompletionItemProvider(
   { scheme: 'file', pattern: '**/*' },
   {
     async provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-      console.log('🔍 Card completion provider triggered!');
-      console.log('Position:', position.line, position.character);
-      
       const sections = await findTodoSections(document.getText());
       const lineNumber = position.line;
-      console.log('Found sections:', sections.length);
-      
       const section = sections.find((section) => {
         return section.startLine <= lineNumber && section.endLine >= lineNumber;
       });
-      console.log('Current section:', section ? 'found' : 'not found');
       
       if (!section) {
-        console.log('❌ Not in a todo section, returning empty');
         return [];
       }
       
       const lineText = document.lineAt(position).text;
-      console.log('Line text:', lineText);
-      console.log('Character at position:', lineText[position.character - 1]);
-      
       const completionItems: vscode.CompletionItem[] = [];
 
       // Check for card data trigger: `$` 
       const dollarIndex = lineText.lastIndexOf('$', position.character);
-      console.log('Dollar index:', dollarIndex, 'Position character:', position.character);
+
       
       if (dollarIndex !== -1) {
-        console.log('💰 Found dollar sign! Attempting to get card data...');
+
         // Show an alert for testing
         // vscode.window.showInformationMessage('Dollar sign detected! Checking for completions...');
         
         // Get card data for the current line
-        console.log('Getting card data for:', document.uri.fsPath, 'line:', lineNumber + 1);
+
         const cardData = {
           ...await getCardData({ 
             path: document.uri.fsPath, 
@@ -136,8 +122,6 @@ const cardDataCompletionProvider = vscode.languages.registerCompletionItemProvid
         try {
           
           if (cardData) {
-            console.log('Card data keys:', Object.keys(cardData));
-            
             // Iterate through all properties in the already-flattened card data
             Object.keys(cardData).forEach(key => {
               if (!key.includes('template_')) return;
@@ -156,36 +140,27 @@ const cardDataCompletionProvider = vscode.languages.registerCompletionItemProvid
                 displayValue = JSON.stringify(value);
               }
 
-              console.log(`Adding completion for ${key}: ${displayValue}`);
-
               const item = new vscode.CompletionItem(key, vscode.CompletionItemKind.Property);
               item.detail = displayValue;
               item.insertText = displayValue;
               item.filterText = key;
-              item.range = new vscode.Range(position.line, dollarIndex, position.line, position.character);
+              
+              // Replace the $ character with the completion
+              const dollarPosition = new vscode.Position(position.line, dollarIndex);
+              const dollarRange = new vscode.Range(dollarPosition, new vscode.Position(position.line, dollarIndex + 1));
+              item.additionalTextEdits = [
+                vscode.TextEdit.delete(dollarRange)
+              ];
+              
               completionItems.push(item);
             });
-            console.log(`✅ Added ${Object.keys(cardData).length} card data completion items`);
+
           } else {
-            console.log('❌ No card data found');
+            vscode.window.showErrorMessage(`❌ No card data found`);
           }
         } catch (error) {
           vscode.window.showErrorMessage(`❌ Error getting card data: ${error}`);
-          // Even if we can't get card data, provide some generic completions
-          const genericItems = ['text', 'list', 'line', 'id', 'tags'];
-          genericItems.forEach(key => {
-            const item = new vscode.CompletionItem(key, vscode.CompletionItemKind.Property);
-            item.detail = `Card data property (generic)`;
-            item.insertText = `{${key}}`;
-            item.range = new vscode.Range(
-              new vscode.Position(position.line, dollarIndex),
-              position
-            );
-            completionItems.push(item);
-          });
         }
-      } else {
-        console.log('❌ No dollar sign found in range');
       }
 
       // vscode.window.showInformationMessage(`Final completion items: ${completionItems.length}`);
