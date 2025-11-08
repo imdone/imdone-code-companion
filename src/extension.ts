@@ -100,67 +100,58 @@ const cardDataCompletionProvider = vscode.languages.registerCompletionItemProvid
       const lineText = document.lineAt(position).text;
       const completionItems: vscode.CompletionItem[] = [];
 
-      // Check for card data trigger: `$` 
       const dollarIndex = lineText.lastIndexOf('$', position.character);
-
+      if (dollarIndex === -1) return completionItems;
       
-      if (dollarIndex !== -1) {
+      const cardData = {
+        ...await getCardData({ 
+          path: document.uri.fsPath, 
+          line: lineNumber + 1 // Convert to 1-based line number
+        }),
+        content: undefined
+      };
 
-        // Show an alert for testing
-        // vscode.window.showInformationMessage('Dollar sign detected! Checking for completions...');
+      try {
         
-        // Get card data for the current line
+        if (cardData) {
+          // Iterate through all properties in the already-flattened card data
+          Object.keys(cardData).forEach(key => {
+            if (!key.includes('template_')) return;
+            const value = cardData[key];
+            // Handle different data types properly
+            let displayValue: string;
+            if (typeof value === 'string') {
+              displayValue = value;
+            } else if (typeof value === 'number' || typeof value === 'boolean') {
+              displayValue = String(value);
+            } else if (Array.isArray(value)) {
+              displayValue = value.join(', ');
+            } else if (value === null || value === undefined) {
+              displayValue = '';
+            } else {
+              displayValue = JSON.stringify(value);
+            }
 
-        const cardData = {
-          ...await getCardData({ 
-            path: document.uri.fsPath, 
-            line: lineNumber + 1 // Convert to 1-based line number
-          }),
-          content: undefined
-        };
+            const item = new vscode.CompletionItem(key, vscode.CompletionItemKind.Property);
+            item.detail = displayValue;
+            item.insertText = displayValue;
+            item.filterText = key;
+            
+            // Replace the $ character with the completion
+            const dollarPosition = new vscode.Position(position.line, dollarIndex);
+            const dollarRange = new vscode.Range(dollarPosition, new vscode.Position(position.line, dollarIndex + 1));
+            item.additionalTextEdits = [
+              vscode.TextEdit.delete(dollarRange)
+            ];
+            
+            completionItems.push(item);
+          });
 
-        try {
-          
-          if (cardData) {
-            // Iterate through all properties in the already-flattened card data
-            Object.keys(cardData).forEach(key => {
-              if (!key.includes('template_')) return;
-              const value = cardData[key];
-              // Handle different data types properly
-              let displayValue: string;
-              if (typeof value === 'string') {
-                displayValue = value;
-              } else if (typeof value === 'number' || typeof value === 'boolean') {
-                displayValue = String(value);
-              } else if (Array.isArray(value)) {
-                displayValue = value.join(', ');
-              } else if (value === null || value === undefined) {
-                displayValue = '';
-              } else {
-                displayValue = JSON.stringify(value);
-              }
-
-              const item = new vscode.CompletionItem(key, vscode.CompletionItemKind.Property);
-              item.detail = displayValue;
-              item.insertText = displayValue;
-              item.filterText = key;
-              
-              // Replace the $ character with the completion
-              const dollarPosition = new vscode.Position(position.line, dollarIndex);
-              const dollarRange = new vscode.Range(dollarPosition, new vscode.Position(position.line, dollarIndex + 1));
-              item.additionalTextEdits = [
-                vscode.TextEdit.delete(dollarRange)
-              ];
-              
-              completionItems.push(item);
-            });
-
-          } else {
-            vscode.window.showErrorMessage(`❌ No card data found`);
-          }
-        } catch (error) {
-          vscode.window.showErrorMessage(`❌ Error getting card data: ${error}`);
+        } else {
+          vscode.window.showErrorMessage(`❌ No card data found`);
         }
+      } catch (error) {
+        vscode.window.showErrorMessage(`❌ Error getting card data: ${error}`);
       }
 
       // vscode.window.showInformationMessage(`Final completion items: ${completionItems.length}`);
