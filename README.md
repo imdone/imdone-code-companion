@@ -7,6 +7,7 @@ This extension provides a seamless way to open Imdone directly to the specific c
 - **Open Imdone Card with Keyboard Shortcut**: Place your cursor inside a `TODO` comments and press `Ctrl+Shift+I` to open Imdone directly to the card.
 - **Efficient Card Location Detection**: Automatically gathers the active file path and line number, generating a link to open Imdone at the exact location.
 - **Autocomplete for `#imdone` Tags**: Provides autocomplete suggestions for `#imdone` tags as you type, making it easier to add and manage tasks.
+- **Template Data Completion**: Use `$` to trigger autocomplete for card template data, allowing you to insert dynamic values like dates, user info, and custom card properties directly into your TODO comments.
 
 ### Example of Usage
 
@@ -29,6 +30,9 @@ None reported yet. Please create an issue if you experience any problems.
 
 ## Release Notes
 
+### 0.1.0
+
+- Added template data completion with `$` trigger - insert dynamic card properties and template values directly into TODO comments
 
 ### 0.0.9
 

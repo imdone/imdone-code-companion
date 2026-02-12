@@ -2,7 +2,7 @@
   "name": "imdone-code-companion",
   "displayName": "Imdone Code Companion",
   "description": "Open TODO's in imdone kanban",
-  "version": "0.0.9",
+  "version": "0.1.0",
   "publisher": "imdone",
   "icon": "imdone-logo-128.png",
   "repository": {
@@ -53,7 +53,7 @@
     "watch:esbuild": "node esbuild.js --watch",
     "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
     "package": "npm run check-types && npm run lint && node esbuild.js --production",
-    "package:vsce": "vsce package",
+    "package:vsce": "npx @vscode/vsce package",
     "compile-tests": "tsc -p . --outDir out",
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "npm run compile-tests && npm run compile && npm run lint",
@@ -76,6 +76,6 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "imdone-core": "^2.0.22"
+    "imdone-core": "^2.1.2"
   }
 }

@@ -13,3 +13,5 @@ vsc-extension-quickstart.md
 **/*.ts
 **/.vscode-test.*
 imdone-code-companion.gif
+backlog/**
+.imdone/**
